@@ -26,11 +26,15 @@ var (
 	blurredButton = fmt.Sprintf("[ %s ]", blurredStyle.Render("Submit"))
 )
 
-//new stuff
+// new stuff
+type formData struct {
+	username string
+	email    string
+	ssh      string
+}
 
-func save(dateToSave []string) {
-	fmt.Println(dateToSave)
-
+func save(data formData) {
+	fmt.Println(data)
 }
 
 type model struct {
@@ -109,7 +113,12 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 			//figure out how to grab user input and actually do something with it
 			if s == "enter" && m.focusIndex == len(m.inputs)-1 {
-				save(m.userInput)
+				data := formData{
+					username: string(m.inputs[0].Value()),
+					email:    string(m.inputs[1].Value()),
+					ssh:      string(m.inputs[2].Value()),
+				}
+				save(data)
 			}
 
 			// Cycle indexes
